@@ -18,11 +18,23 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@chrome-extension-boilerplate/shared": "workspace:*"
+    "@chrome-extension-boilerplate/shared": "workspace:*",
+    "@mlc-ai/web-llm": "^0.2.38",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.379.0",
+    "progressbar.js": "^1.1.1",
+    "react-progress-bar": "^0.1.0",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@chrome-extension-boilerplate/hmr": "workspace:*",
     "@chrome-extension-boilerplate/tailwindcss-config": "workspace:*",
     "@chrome-extension-boilerplate/tsconfig": "workspace:*",
-    "@chrome-extension-boilerplate/hmr": "workspace:*"
+    "@types/progressbar.js": "^1.1.7"
   }
 }
