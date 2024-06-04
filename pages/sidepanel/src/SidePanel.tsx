@@ -22,11 +22,9 @@ const SidePanel = () => {
 
   return (
     <Providers>
-      <div className="flex h-screen max-h-screen flex-col">
+      <div className="flex h-screen max-h-screen flex-col items-center">
         <ChatMessages messages={messages} />
-        <div className="flex h-16 shrink-0 items-center border-t bg-gray-100 px-4 dark:border-gray-800 dark:bg-gray-950">
-          <ChatInput messages={messages} setMessages={setMessages} />
-        </div>
+        <ChatInput messages={messages} setMessages={setMessages} />
       </div>
     </Providers>
   );

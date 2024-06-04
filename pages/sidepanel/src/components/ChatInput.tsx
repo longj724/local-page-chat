@@ -45,7 +45,7 @@ const ChatInput = ({ messages, setMessages }: Props) => {
       let firstPass = true;
 
       if (data) {
-        while (true) {
+        while (true && isGenerating) {
           const result = await data.read();
           const { done, value } = result;
 
@@ -104,13 +104,6 @@ const ChatInput = ({ messages, setMessages }: Props) => {
     sendMessage();
   };
 
-  // const handleSendMessageWithPrompt = (prompt: string) => {
-  //   setIsGenerating(true);
-  //   const message = `${prompt}:\n${userInput}`;
-  //   updateUserMessageOptimistically(prompt);
-  //   sendMessage(message);
-  // };
-
   const updateUserMessageOptimistically = (prompt = '') => {
     const newUserQuestion: Message = {
       role: 'user',
@@ -118,12 +111,10 @@ const ChatInput = ({ messages, setMessages }: Props) => {
     };
 
     setMessages(prev => [...prev!, newUserQuestion]);
+  };
 
-    // if (messageContainerRef.current) {
-    //   (messageContainerRef as React.MutableRefObject<HTMLDivElement>).current.scrollTop = (
-    //     messageContainerRef as React.MutableRefObject<HTMLDivElement>
-    //   ).current.scrollHeight;
-    // }
+  const stopGenerating = () => {
+    setIsGenerating(false);
   };
 
   return (
@@ -147,7 +138,7 @@ const ChatInput = ({ messages, setMessages }: Props) => {
           {isGenerating ? (
             <CircleStop
               className="animate-pulse rounded bg-transparent p-1 hover:bg-background"
-              onClick={() => {}}
+              onClick={stopGenerating}
               size={30}
             />
           ) : (

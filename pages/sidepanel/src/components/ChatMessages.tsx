@@ -10,7 +10,7 @@ type Props = {
 
 const ChatMessages = ({ messages }: Props) => {
   return (
-    <div className="flex-1 overflow-auto p-4">
+    <div className="flex-1 overflow-auto p-4 w-full">
       <div className="grid gap-4">
         {messages.map((message, index) => (
           <ChatMessage key={index} message={message} />
