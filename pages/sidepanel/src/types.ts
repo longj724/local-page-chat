@@ -28,3 +28,7 @@ export interface ChatResponse {
 interface Options {
   num_ctx: number;
 }
+
+export interface Model {
+  name: string;
+}

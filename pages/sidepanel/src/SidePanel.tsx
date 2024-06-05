@@ -1,5 +1,6 @@
 // External Dependencies
 import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 // Relative Dependencies
 import '@src/SidePanel.css';
@@ -8,9 +9,30 @@ import ChatInput from '@src/components/ChatInput';
 import { Message } from '@src/types';
 import { Providers } from './Providers';
 import ChatMessages from './components/ChatMessages';
+import ChatHeader from './components/ChatHeader';
+import { Model } from './types';
 
 const SidePanel = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [selectedModel, setSelectedModel] = useState<Model | null>(null);
+
+  const { data: models } = useQuery({
+    queryKey: ['models'],
+    queryFn: async () => {
+      const response = await fetch(`http://localhost:11434/api/tags`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const models = (await response.json()).models as Model[];
+
+      if (models.length !== 0) setSelectedModel(models[0]);
+
+      return models;
+    },
+  });
 
   useEffect(() => {
     chrome.storage.local.get('chatMessages', result => {
@@ -21,12 +43,11 @@ const SidePanel = () => {
   }, [messages]);
 
   return (
-    <Providers>
-      <div className="flex h-screen max-h-screen flex-col items-center">
-        <ChatMessages messages={messages} />
-        <ChatInput messages={messages} setMessages={setMessages} />
-      </div>
-    </Providers>
+    <div className="flex h-screen max-h-screen flex-col items-center">
+      <ChatHeader models={models} selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
+      <ChatMessages messages={messages} />
+      <ChatInput messages={messages} setMessages={setMessages} />
+    </div>
   );
 };
 

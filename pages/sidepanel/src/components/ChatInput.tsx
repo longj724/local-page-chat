@@ -7,13 +7,15 @@ import { useMutation } from '@tanstack/react-query';
 import { TextareaAutosize } from '@src/components/ui/textarea-autosize';
 import { cn } from '@src/lib/utils';
 import { ChatRequest, ChatResponse, Message } from '@src/types';
+import { Model } from '@src/types';
 
 type Props = {
-  setMessages: Dispatch<SetStateAction<Message[]>>;
   messages: Message[];
+  model: Model | null;
+  setMessages: Dispatch<SetStateAction<Message[]>>;
 };
 
-const ChatInput = ({ messages, setMessages }: Props) => {
+const ChatInput = ({ messages, model, setMessages }: Props) => {
   const [userInput, setUserInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -21,7 +23,7 @@ const ChatInput = ({ messages, setMessages }: Props) => {
   const { mutate: sendMessage } = useMutation({
     mutationFn: async () => {
       const chatRequest: ChatRequest = {
-        model: 'llama3',
+        model: model?.name ?? 'llama3',
         messages: [...messages, { role: 'user', content: userInput }],
       };
 
