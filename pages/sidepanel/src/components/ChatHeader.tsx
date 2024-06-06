@@ -42,7 +42,7 @@ const ChatHeader = ({ isLoading, models, selectedModel, setSelectedModel }: Prop
         )}
       </div>
       <div className="flex flex-1 justify-center">Local AI Chat</div>
-      <div className="flex flex-1 justify-end"></div>
+      <div className="xs:hidden sm:flex-1"></div>
     </header>
   );
 };
