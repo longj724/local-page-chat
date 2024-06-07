@@ -14,7 +14,7 @@ type Props = {
 const MessageMarkdown = ({ content }: Props) => {
   return (
     <MessageMarkdownMemoized
-      className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 min-w-full space-y-6 break-words"
+      className="prose dark:text-white dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 min-w-full space-y-6 break-words"
       remarkPlugins={[remarkGfm, remarkMath]}
       components={{
         p({ children }) {

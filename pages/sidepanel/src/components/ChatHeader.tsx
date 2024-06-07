@@ -2,9 +2,8 @@
 
 // Relative Dependencies
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@src/components/ui/select';
-type Model = {
-  name: string;
-};
+import { Model } from '@src/types';
+import SettingsMenu from './SettingsMenu';
 
 type Props = {
   isLoading: boolean;
@@ -20,7 +19,7 @@ const ChatHeader = ({ isLoading, models, selectedModel, setSelectedModel }: Prop
   };
 
   return (
-    <header className="lg:px flex h-14 min-h-[3.5rem] w-full items-center justify-between border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+    <header className="lg:px flex h-14 min-h-[3.5rem] w-full items-center justify-between border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 z-10">
       <div className=" flex w-full flex-1 justify-start">
         {isLoading ? (
           <div className="h-full w-full flex items-center justify-center">Loading Models...</div>
@@ -30,7 +29,7 @@ const ChatHeader = ({ isLoading, models, selectedModel, setSelectedModel }: Prop
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 {models?.map(model => (
                   <SelectItem key={model.name} value={model.name} className="hover:cursor-pointer">
                     {model.name}
@@ -42,7 +41,9 @@ const ChatHeader = ({ isLoading, models, selectedModel, setSelectedModel }: Prop
         )}
       </div>
       <div className="flex flex-1 justify-center">Local AI Chat</div>
-      <div className="xs:hidden sm:flex-1"></div>
+      <div className="flex flex-1 justify-end">
+        <SettingsMenu />
+      </div>
     </header>
   );
 };

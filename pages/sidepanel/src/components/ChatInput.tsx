@@ -57,6 +57,7 @@ const ChatInput = ({ messages, model, setMessages }: Props) => {
 
           const decodedValue: ChatResponse = JSON.parse(decoder.decode(value, { stream: true }));
           newMessage.content += decodedValue.message.content;
+          console.log(decodedValue.message.content);
 
           if (value) {
             if (firstPass) {

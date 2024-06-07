@@ -16,7 +16,7 @@ const SidePanel = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [selectedModel, setSelectedModel] = useState<Model | null>(null);
 
-  const { data: models } = useQuery({
+  const { data: models, isLoading } = useQuery({
     queryKey: ['models'],
     queryFn: async () => {
       const response = await fetch(`http://localhost:11434/api/tags`, {
@@ -43,10 +43,15 @@ const SidePanel = () => {
   }, [messages]);
 
   return (
-    <div className="flex h-screen max-h-screen flex-col items-center">
-      <ChatHeader models={models} selectedModel={selectedModel} setSelectedModel={setSelectedModel} />
+    <div className="flex h-screen max-h-screen flex-col items-center bg-muted/40">
+      <ChatHeader
+        models={models}
+        selectedModel={selectedModel}
+        setSelectedModel={setSelectedModel}
+        isLoading={isLoading}
+      />
       <ChatMessages messages={messages} />
-      <ChatInput messages={messages} setMessages={setMessages} />
+      <ChatInput messages={messages} setMessages={setMessages} model={selectedModel} />
     </div>
   );
 };
